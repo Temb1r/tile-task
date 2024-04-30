@@ -1,18 +1,20 @@
-import { Fragment, memo } from 'react';
+import { Fragment, memo, useMemo } from "react";
 
-const MainComponent = ({
-    user = { name: 'unknown', age: null } // default value for `props.user`
-}) => {
-    return (
-        <Fragment>
-            <ChildComponent user={user} />
-        </Fragment>
-    );
+const MainComponent = ({ user = { name: "unknown", age: null } }) => {
+  const memoUser = useMemo(() => user, [user]);
+
+  return (
+    <Fragment>
+      <ChildComponent user={memoUser} />
+    </Fragment>
+  );
 };
 
 // memoized component
 const ChildComponent = memo(({ user: { name, age } }) => {
-    return (
-        <div>user name: {name}, user age: {age}</div>
-    )
+  return (
+    <div>
+      user name: {name}, user age: {age}
+    </div>
+  );
 });
